@@ -1,0 +1,67 @@
+<div class="containner">
+    <div class="contenedor">
+        <h3>Registro de participantes</h3>
+        <form class="example-form" [formGroup]="formregistro" (submit)="add()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre Completo</mat-label>
+                <input matInput placeholder="Nombre de participante" autocomplete="off" formControlName="nombre">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Carnet</mat-label>
+                <input matInput placeholder="Numero de CI" formControlName="ci" autocomplete="off">
+            </mat-form-field>
+            <button type="submit" mat-raised-button color="primary" [disabled]="formregistro.invalid">Agregar</button>
+        </form>
+    </div>
+    <div class="contenedor">
+        <h3>Lista de participantes</h3>
+        <h2 *ngIf="participantes.length==0">No hay participantes en lista</h2>
+        <div class="item-content" *ngFor="let item of participantes">
+            <span>{{item.nombre | uppercase}}</span>
+            <button mat-icon-button color="accent" (click)="remove(item)">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </div>
+        <button *ngIf="participantes.length>1" mat-raised-button color="primary"
+            (click)="sortear(participantes.length)">Sortear</button>
+    </div>
+
+</div>
+
+
+
+
+<!-- <mat-grid-list cols="2" rowHeight="1:1">
+    <mat-grid-tile colspan="1">
+        <div class="contenedor">
+            <h3>Lista de participantes</h3>
+            <h2 *ngIf="participantes.length==0">No hay participantes en lista</h2>
+            <button *ngIf="participantes.length>1" mat-raised-button color="primary"
+                (click)="sortear(participantes.length)">Sortear</button>
+            <div class="item-content" *ngFor="let item of participantes">
+                <span>{{item.nombre | uppercase}}</span>
+                <button mat-icon-button color="accent" (click)="remove(item)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+        <div class="contenedor">
+            <h3>Registro de participantes</h3>
+            <form class="example-form" [formGroup]="formregistro" (submit)="add()">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Nombre Completo</mat-label>
+                    <input matInput placeholder="Nombre de participante" autocomplete="off" formControlName="nombre">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Carnet</mat-label>
+                    <input matInput placeholder="Numero de CI" formControlName="ci" autocomplete="off">
+                </mat-form-field>
+                <button type="submit" mat-raised-button color="primary"
+                    [disabled]="formregistro.invalid">Agregar</button>
+            </form>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list> -->
