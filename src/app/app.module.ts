@@ -20,11 +20,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { InicioComponent } from './pages/inicio/inicio.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegistroComponent
+    RegistroComponent,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
