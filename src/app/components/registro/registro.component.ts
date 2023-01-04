@@ -70,4 +70,26 @@ export class RegistroComponent implements OnInit {
       }
     })
   }
+
+  limpiarlista() {
+ 
+    Swal.fire({
+      title: 'Eliminar lista?',
+      text: "La lista de participantes se eliminara",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.participantes = [];
+        Swal.fire(
+          'Lista Vacia!',
+          'ingrese nuevamente a los participantes',
+          'success'
+        )
+      }
+    })
+   }
 }

@@ -35,6 +35,8 @@
             </div>
         </mat-list>
         <button *ngIf="participantes.length>1" mat-raised-button color="primary" (click)="sortear(participantes.length)"
-            class="btn">Sortear</button>
+            class="btn">Sortear</button><br>
+            <button *ngIf="participantes.length>1" mat-raised-button color="accent" (click)="limpiarlista()"
+                class="btn">Vaciar lista</button>
     </div>
 </div>
