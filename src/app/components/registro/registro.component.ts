@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2'
 export interface Participante {
   nombre: string;
@@ -10,25 +10,21 @@ export interface Participante {
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent implements OnInit{
-  formregistro: any;
-
+export class RegistroComponent implements OnInit {
+  public formregistro: FormGroup = this.fb.group({
+    nombre: ['', [Validators.required]],
+    ci: ['', [Validators.required]]
+  });;
+  public spinner: boolean = false;
   public participantes: Participante[] = [];
 
   constructor(private fb: FormBuilder) {
 
   }
   ngOnInit(): void {
-    this.initform();
+
   }
 
-
-  initform() {
-    this.formregistro = this.fb.group({
-      nombre: ['',[Validators.required]],
-      ci: ['',[Validators.required]]
-    });
-  }
 
   add() {
     this.participantes.push(this.formregistro.value);
@@ -36,32 +32,42 @@ export class RegistroComponent implements OnInit{
   }
 
 
-  sortear(tamanio:number){
-    let numeroganador=Math.round(Math.random()*(tamanio-1));
-    let nombreganador=this.participantes[numeroganador].nombre+' con el numero de carnet '+this.participantes[numeroganador].ci;
+  sortear(tamanio: number) {
+    let numeroganador = Math.round(Math.random() * (tamanio - 1));
+    let nombreganador = this.participantes[numeroganador].nombre + ' con el numero de carnet ' + this.participantes[numeroganador].ci;
+    this.spinner = true;
+    setTimeout(() => {
+      this.spinner = false;
+      Swal.fire({
+        title: 'El ganador es:',
+        text: nombreganador,
+        icon: 'success',
+        confirmButtonText: 'ok'
+      })
+    }, 2000);
+
+  }
+  remove(item: Participante): void {
     Swal.fire({
-      title: 'El ganador es:',
-      text:  nombreganador,
-      icon: 'success',
-      color: '#716add',
+      title: 'Eliminar participante?',
+      text: "El participante se eliminara de la lista",
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Guardar Sorteo'
+      confirmButtonText: 'Si, eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
+        const index = this.participantes.indexOf(item);
+        if (index >= 0) {
+          this.participantes.splice(index, 1);
+        }
         Swal.fire(
-          'Registro guardado',
-          'el registro se guardo satisfactoriamente.',
+          'Eliminado de la lista!',
+          'no contara con el participante para el sorteo.',
           'success'
         )
       }
     })
-  }
-  remove(item: Participante): void {
-    const index = this.participantes.indexOf(item);
-    if (index >= 0) {
-      this.participantes.splice(index, 1);
-    }
   }
 }
